@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A review of a book.
@@ -27,6 +28,7 @@ class Review
      *
      * @ORM\Column(type="smallint")
      */
+    #[Assert\Range(min: 0, max: 5)]
     public int $rating = 0;
 
     /**
@@ -34,6 +36,7 @@ class Review
      *
      * @ORM\Column(type="text")
      */
+    #[Assert\NotBlank]
     public string $body = '';
 
     /**
@@ -41,6 +44,7 @@ class Review
      *
      * @ORM\Column
      */
+    #[Assert\NotBlank]
     public string $author = '';
 
     /**
@@ -48,6 +52,7 @@ class Review
      *
      * @ORM\Column(type="datetime_immutable")
      */
+    #[Assert\NotNull]
     public ?\DateTimeInterface $publicationDate = null;
 
     /**
@@ -55,6 +60,7 @@ class Review
      *
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="reviews")
      */
+    #[Assert\NotNull]
     public ?Book $book = null;
 
     public function getId(): ?int
